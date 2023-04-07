@@ -1,8 +1,8 @@
 "use client";
-import CryptoCard from "@/components/CryptoCard";
 import React from "react";
 import { CurrencyBtc, CurrencyEth } from "@phosphor-icons/react";
-import CryptoChart from "@/components/CryptoChart";
+import CryptoCard from "./components/CryptoCard";
+import CryptoChart from "./components/CryptoChart";
 
 function page() {
   return (
