@@ -1,85 +1,25 @@
 "use client";
-import { CurrencyBtc } from "@phosphor-icons/react";
+import CryptoCard from "@/components/CryptoCard";
 import React from "react";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import { CurrencyBtc, CurrencyEth } from "@phosphor-icons/react";
+import CryptoChart from "@/components/CryptoChart";
 
 function page() {
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
-  };
-
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-black">
-      {/* card */}
-      <div className="flex flex-col items-center justify-center bg-gray-800 p-4 rounded-xl border-2 border-gray-700">
-        {/* first row */}
-        <div className="flex flex-row w-full">
-          {/* icon and info row */}
-          <div className="flex flex-row w-full">
-            <div>
-              <CurrencyBtc size={64} weight="thin" color="White" />
-            </div>
-            <div className="flex flex-col w-full">
-              <div className="flex flex-row items-center justify-between">
-                <p className="text-white">Bitcoin</p>
-                <p className="text-gray-500">$23,748.90</p>
-              </div>
-              <p className="text-gray-500">BTC</p>
-            </div>
-          </div>
+      <div className="flex flex-col">
+        <div className="flex flex-row">
+          <CryptoCard name="Bitcoin" code="BTC" price={23489.43}>
+            <CurrencyBtc size={64} weight="thin" color="White" />
+          </CryptoCard>
+          <CryptoCard name="Ethereum" code="ETH" price={2634.12}>
+            <CurrencyEth size={64} weight="thin" color="White" />
+          </CryptoCard>
         </div>
-        <div>
-          <Line data={data} />
+        <div className="w-full">
+          <div className="mx-8 my-4 bg-gray-800 p-4 rounded-xl border-2 border-gray-700">
+            <CryptoChart />
+          </div>
         </div>
       </div>
     </div>
