@@ -49,8 +49,9 @@ function CryptoCard(props: Props) {
     }
     getData();
   }, []);
-
+  //@ts-ignore
   const labels = coinData?.map((item: any) => item[0]);
+  //@ts-ignore
   const num = coinData?.map((item: any) => item[1]);
 
   const data = {
