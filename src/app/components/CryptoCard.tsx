@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
+import { CurrencyBtc, CurrencyEth } from "@phosphor-icons/react";
 
 import {
   Chart as ChartJS,
@@ -27,33 +29,36 @@ type Props = {
   name: string;
   price: number;
   code: string;
-  children: JSX.Element;
 };
 
 function CryptoCard(props: Props) {
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-  ];
+  const [coinData, setCoinData] = useState(null);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await fetch(
+        "http://localhost:3000/api/cg/marketChart?" +
+          new URLSearchParams({
+            id: props.name.toLocaleLowerCase(),
+            currency: "usd",
+            daysInterval: "30",
+          })
+      ).then((res) => res.json());
+      setCoinData(data.product.prices);
+      data.product.prices.map((item: any) => console.log(item[0]));
+    }
+    getData();
+  }, []);
+
+  const labels = coinData?.map((item: any) => item[0]);
+  const num = coinData?.map((item: any) => item[1]);
 
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
+        label: "Price",
+        data: num,
         borderColor: "rgb(1, 99, 132)",
       },
     ],
@@ -66,7 +71,7 @@ function CryptoCard(props: Props) {
         {/* icon and info row */}
         <div className="flex flex-row w-full relative">
           <div className="absolute -translate-x-12 -translate-y-12 bg-gray-800 rounded-3xl p-2 border-t-4 border-b-[1px] border-r-[1px] border-l-4 border-gray-700">
-            {props.children}
+            {getIcon(props.code)}
           </div>
           <div className="flex flex-col w-full ml-12">
             <div className="flex flex-row items-center justify-between">
@@ -121,5 +126,17 @@ function CryptoCard(props: Props) {
     </div>
   );
 }
+
+const getIcon = (name: string) => {
+  switch (name) {
+    case "BTC":
+      return <CurrencyBtc size={64} weight="thin" color="White" />;
+      break;
+    case "ETH":
+      return <CurrencyEth size={64} weight="thin" color="White" />;
+    default:
+      break;
+  }
+};
 
 export default CryptoCard;
