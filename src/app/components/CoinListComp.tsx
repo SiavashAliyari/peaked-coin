@@ -2,88 +2,107 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CoinList } from "../coinsList";
+import CoinListBtn from "./CoinListBtn";
 
 type Props = {
   coinList: any;
 };
 enum sortType {
-  market_cap,
   price,
   name,
+  tfhChange,
+  tfhVolume,
+  market_cap,
 }
 
 function CoinListComp({ coinList }: Props) {
   const [coinSorted, setSortedCoin] = useState<CoinList[]>(coinList);
+  const [curruntSelected, setSelected] = useState(sortType.market_cap);
+
   function HandleSort(sortId: sortType) {
+    setSelected(sortId);
+    var sortedList;
     switch (sortId) {
       case sortType.name:
-        var sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
+        sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.id < b.id) {
             return -1;
           } else {
             return +1;
           }
         });
-        setSortedCoin([...sortedList]);
         break;
       case sortType.price:
-        var sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
+        sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.current_price < b.current_price) {
             return +1;
           } else {
             return -1;
           }
         });
-        setSortedCoin([...sortedList]);
         break;
-      default:
+      case sortType.tfhChange:
+        sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
+          if (a.price_change_24h < b.price_change_24h) {
+            return +1;
+          } else {
+            return -1;
+          }
+        });
+      case sortType.tfhVolume:
+        sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
+          if (a.total_volume < b.total_volume) {
+            return +1;
+          } else {
+            return -1;
+          }
+        });
+      case sortType.market_cap:
+        sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
+          if (a.market_cap < b.market_cap) {
+            return +1;
+          } else {
+            return -1;
+          }
+        });
         break;
     }
+    setSortedCoin([...sortedList]);
   }
 
   return (
     <ul className="flex flex-col gap-y-4">
       <div className="flex flex-row justify-between items-center bg-gray-800 rounded-xl  px-8 py-4 border-2 border-gray-700">
-        <button
-          className="text-white"
-          onClick={() => {
-            HandleSort(sortType.name);
-          }}
-        >
-          Name
-        </button>
-        <button
-          className="text-white"
-          onClick={() => {
-            HandleSort(sortType.price);
-          }}
-        >
-          Price
-        </button>
-        <button
-          className="text-white"
-          onClick={() => {
-            HandleSort(sortType.name);
-          }}
-        >
-          24h Change
-        </button>
-        <button
-          className="text-white"
-          onClick={() => {
-            HandleSort(sortType.name);
-          }}
-        >
-          24h Volume
-        </button>
-        <button
-          className="text-white"
-          onClick={() => {
-            HandleSort(sortType.name);
-          }}
-        >
-          Market Cap
-        </button>
+        <CoinListBtn
+          curruntSelected={curruntSelected}
+          selfIndex={sortType.name}
+          onClicked={HandleSort}
+          displayText={"Name"}
+        ></CoinListBtn>
+        <CoinListBtn
+          curruntSelected={curruntSelected}
+          selfIndex={sortType.price}
+          onClicked={HandleSort}
+          displayText={"Price"}
+        ></CoinListBtn>
+        <CoinListBtn
+          curruntSelected={curruntSelected}
+          selfIndex={sortType.tfhChange}
+          onClicked={HandleSort}
+          displayText={"24h Change"}
+        ></CoinListBtn>
+        <CoinListBtn
+          curruntSelected={curruntSelected}
+          selfIndex={sortType.tfhVolume}
+          onClicked={HandleSort}
+          displayText={"24h Volume"}
+        ></CoinListBtn>
+        <CoinListBtn
+          curruntSelected={curruntSelected}
+          selfIndex={sortType.market_cap}
+          onClicked={HandleSort}
+          displayText={" Market Cap"}
+        ></CoinListBtn>
       </div>
       {coinSorted?.map((coin: CoinList) => (
         <div
