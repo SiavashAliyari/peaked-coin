@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { CoinList } from "../coinsList";
 import CoinListBtn from "./CoinListBtn";
+import { log } from "console";
 
 type Props = {
   coinList: any;
@@ -49,6 +50,7 @@ function CoinListComp({ coinList }: Props) {
             return -1;
           }
         });
+        break;
       case sortType.tfhVolume:
         sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.total_volume < b.total_volume) {
@@ -57,6 +59,7 @@ function CoinListComp({ coinList }: Props) {
             return -1;
           }
         });
+        break;
       case sortType.market_cap:
         sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.market_cap < b.market_cap) {

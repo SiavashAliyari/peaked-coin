@@ -1,4 +1,5 @@
 "use client";
+import { log } from "console";
 import React from "react";
 
 type Props = {
@@ -16,7 +17,7 @@ function CoinListBtn({
 }: Props) {
   return (
     <button
-      className={`text-white ${
+      className={`text-white rounded-xl px-4 py-2 ${
         curruntSelected == selfIndex ? "bg-slate-500" : "bg-slate-900"
       }`}
       onClick={() => {
