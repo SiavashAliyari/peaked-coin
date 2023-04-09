@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, spring } from "framer-motion";
 import React from "react";
 
 type Props = {
@@ -6,6 +6,7 @@ type Props = {
   curruntSelected: number;
   selfIndex: number;
   displayText: String;
+  classStyle?: string;
 };
 
 function CoinListBtn({
@@ -13,13 +14,19 @@ function CoinListBtn({
   curruntSelected,
   selfIndex,
   displayText,
+  classStyle,
 }: Props) {
+  const variants = {
+    selcted: { color: "rgb(107,114,128)" },
+    notSelected: { color: "rgb(255,255,255)" },
+  };
+
   return (
     <motion.button
-      whileTap={{ scale: 1.2 }}
-      className={`text-white rounded-xl px-4 py-2 ${
-        curruntSelected == selfIndex ? "bg-slate-500" : "bg-slate-900"
-      }`}
+      variants={variants}
+      animate={curruntSelected != selfIndex ? "selcted" : "notSelected"}
+      transition={{ type: "spring", duration: 1 }}
+      className={classStyle + ` py-2`}
       onClick={() => {
         onClicked(selfIndex);
       }}

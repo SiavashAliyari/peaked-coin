@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { CoinList } from "../coinsList";
 import CoinListBtn from "./CoinListBtn";
-import { log } from "console";
+import { useScroll, motion, useSpring, useTransform } from "framer-motion";
 
 type Props = {
   coinList: any;
@@ -19,7 +19,13 @@ enum sortType {
 function CoinListComp({ coinList }: Props) {
   const [coinSorted, setSortedCoin] = useState<CoinList[]>(coinList);
   const [curruntSelected, setSelected] = useState(sortType.market_cap);
-
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["end end", "start start"],
+  });
+  const scrollSpringed = useSpring(scrollYProgress);
+  const transformed = useTransform(scrollSpringed, [0, 1], [0, 100]);
   function HandleSort(sortId: sortType) {
     setSelected(sortId);
     var sortedList;
@@ -74,45 +80,54 @@ function CoinListComp({ coinList }: Props) {
   }
 
   return (
-    <ul className="flex flex-col gap-y-4">
-      <div className="flex flex-row justify-between items-center bg-gray-800 rounded-xl  px-8 py-4 border-2 border-gray-700">
+    <motion.div className="w-screen lg:w-full px-4 overflow-x-scroll bg-gray-800 flex flex-col  items-center">
+      <motion.div
+        ref={ref}
+        className="flex w-fit lg:w-full pl-[250px] lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
+      >
         <CoinListBtn
+          classStyle=" sticky left-0 min-w-[250px] text-start bg-gray-800 lg:border-none border-r-2 border-gray-700 "
           curruntSelected={curruntSelected}
           selfIndex={sortType.name}
           onClicked={HandleSort}
           displayText={"Name"}
         ></CoinListBtn>
         <CoinListBtn
+          classStyle=" min-w-[100px] text-end"
           curruntSelected={curruntSelected}
           selfIndex={sortType.price}
           onClicked={HandleSort}
           displayText={"Price"}
         ></CoinListBtn>
         <CoinListBtn
+          classStyle=" min-w-[100px] text-end"
           curruntSelected={curruntSelected}
           selfIndex={sortType.tfhChange}
           onClicked={HandleSort}
           displayText={"24h Change"}
         ></CoinListBtn>
         <CoinListBtn
+          classStyle=" min-w-[100px] text-end"
           curruntSelected={curruntSelected}
           selfIndex={sortType.tfhVolume}
           onClicked={HandleSort}
           displayText={"24h Volume"}
         ></CoinListBtn>
         <CoinListBtn
+          classStyle=" min-w-[100px] text-end"
           curruntSelected={curruntSelected}
           selfIndex={sortType.market_cap}
           onClicked={HandleSort}
           displayText={" Market Cap"}
         ></CoinListBtn>
-      </div>
-      {coinSorted?.map((coin: CoinList) => (
+      </motion.div>
+      {coinSorted?.map((coin: CoinList, index) => (
         <div
           key={coin.id}
-          className="flex flex-row justify-between items-center bg-gray-800 rounded-xl  px-8 py-4 border-2 border-gray-700"
+          className="flex w-fit lg:w-full  flex-row justify-between  lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
         >
-          <div className="flex flex-row gap-4 justify-center items-center">
+          <div className="sticky left-0 bg-gray-800 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
+            <p className="text-white hidden lg:block text-end">{index}</p>
             <Image
               className="rounded-full shadow-md w-auto h-auto"
               alt="icon"
@@ -127,9 +142,11 @@ function CoinListComp({ coinList }: Props) {
               {coin.id[0].toUpperCase() + coin.id.slice(1)}
             </p>
           </div>
-          <p className=" text-white">{"$ " + coin.current_price}</p>
+          <p className=" text-white text-end lg:mx-0 min-w-[100px]">
+            {"$ " + coin.current_price}
+          </p>
           <p
-            className={` text-center ${
+            className={`text-end min-w-[100px] ${
               coin.price_change_percentage_24h > 0
                 ? " text-green-500"
                 : " text-red-500"
@@ -137,11 +154,15 @@ function CoinListComp({ coinList }: Props) {
           >
             {coin.price_change_percentage_24h + " %"}
           </p>
-          <p className="text-white">{nFormatter(coin.total_volume, 2)}</p>
-          <p className="text-white">{nFormatter(coin.market_cap, 2)}</p>
+          <p className="text-white min-w-[100px] text-end">
+            {nFormatter(coin.total_volume, 2)}
+          </p>
+          <p className="text-white min-w-[100px] text-end">
+            {nFormatter(coin.market_cap, 2)}
+          </p>
         </div>
       ))}
-    </ul>
+    </motion.div>
   );
 }
 
