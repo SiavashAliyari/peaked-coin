@@ -45,7 +45,7 @@ function CryptoCard(props: Props) {
           })
       ).then((res) => res.json());
       setCoinData(data.product.prices);
-      data.product.prices.map((item: any) => console.log(item[0]));
+      // data.product.prices.map((item: any) => console.log(item[0]));
     }
     getData();
   }, []);
