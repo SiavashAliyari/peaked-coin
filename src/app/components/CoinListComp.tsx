@@ -17,28 +17,25 @@ function CoinListComp({ coinList }: Props) {
   function HandleSort(sortId: sortType) {
     switch (sortId) {
       case sortType.name:
-        var sortedList = coinList.sort((a: CoinList, b: CoinList) => {
+        var sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.id < b.id) {
-            return 11;
+            return -1;
           } else {
             return +1;
           }
         });
-        setSortedCoin(sortedList);
-        console.log(coinSorted);
-
+        setSortedCoin([...sortedList]);
         break;
       case sortType.price:
-        var sortedList = coinList.sort((a: CoinList, b: CoinList) => {
+        var sortedList = coinSorted.sort((a: CoinList, b: CoinList) => {
           if (a.current_price < b.current_price) {
             return +1;
           } else {
             return -1;
           }
         });
-        setSortedCoin(sortedList);
+        setSortedCoin([...sortedList]);
         break;
-
       default:
         break;
     }
