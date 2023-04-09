@@ -1,5 +1,4 @@
-"use client";
-import { log } from "console";
+import { motion } from "framer-motion";
 import React from "react";
 
 type Props = {
@@ -16,7 +15,8 @@ function CoinListBtn({
   displayText,
 }: Props) {
   return (
-    <button
+    <motion.button
+      whileTap={{ scale: 1.2 }}
       className={`text-white rounded-xl px-4 py-2 ${
         curruntSelected == selfIndex ? "bg-slate-500" : "bg-slate-900"
       }`}
@@ -25,7 +25,7 @@ function CoinListBtn({
       }}
     >
       {displayText}
-    </button>
+    </motion.button>
   );
 }
 
