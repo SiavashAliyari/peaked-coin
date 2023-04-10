@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CoinList } from "../coinsList";
 import CoinListBtn from "./CoinListBtn";
 import { useScroll, motion, useSpring, useTransform } from "framer-motion";
+import Link from "next/link";
 
 type Props = {
   coinList: any;
@@ -83,7 +84,7 @@ function CoinListComp({ coinList }: Props) {
     <motion.div className="w-screen lg:w-full px-4 overflow-x-scroll bg-gray-800 flex flex-col  items-center">
       <motion.div
         ref={ref}
-        className="flex w-fit lg:w-full pl-[250px] lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
+        className="flex w-fit lg:w-full pl-[250px] md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
       >
         <CoinListBtn
           classStyle=" sticky left-0 min-w-[250px] text-start bg-gray-800 lg:border-none border-r-2 border-gray-700 "
@@ -122,9 +123,10 @@ function CoinListComp({ coinList }: Props) {
         ></CoinListBtn>
       </motion.div>
       {coinSorted?.map((coin: CoinList, index) => (
-        <div
+        <Link
+          href={`/coins/${coin.id}`}
           key={coin.id}
-          className="flex w-fit lg:w-full  flex-row justify-between  lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
+          className="flex w-fit lg:w-full  flex-row justify-between  md:px-0 lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
         >
           <div className="sticky left-0 bg-gray-800 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
             <p className="text-white hidden lg:block text-end">{index}</p>
@@ -160,7 +162,7 @@ function CoinListComp({ coinList }: Props) {
           <p className="text-white min-w-[100px] text-end">
             {nFormatter(coin.market_cap, 2)}
           </p>
-        </div>
+        </Link>
       ))}
     </motion.div>
   );
