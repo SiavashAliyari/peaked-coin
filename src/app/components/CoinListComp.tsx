@@ -25,8 +25,6 @@ function CoinListComp({ coinList }: Props) {
     target: ref,
     offset: ["end end", "start start"],
   });
-  const scrollSpringed = useSpring(scrollYProgress);
-  const transformed = useTransform(scrollSpringed, [0, 1], [0, 100]);
   function HandleSort(sortId: sortType) {
     setSelected(sortId);
     var sortedList;
