@@ -59,25 +59,29 @@ function page({ params }: { params: { coinId: string } }) {
               </p>
             </div>
           </div>
-          <div className="overflow-hidden flex flex-row justify-start w-64 h-2 bg-gray-500 rounded-3xl">
-            <div
-              style={{
-                width:
-                  Inverselerp(
-                    coinData.product.market_data.low_24h["usd"],
-                    coinData.product.market_data.high_24h["usd"],
-                    coinData.product.market_data.current_price["usd"]
-                  ).toString() + "%",
-              }}
-              className="bg-gradient-to-r from-green-600 to-yellow-300"
-            ></div>
+          <div className="flex flex-col w-fit">
+            <div className="overflow-hidden flex flex-row justify-start w-80 h-2 bg-gray-500 rounded-3xl">
+              <div
+                style={{
+                  width:
+                    Inverselerp(
+                      coinData.product.market_data.low_24h["usd"],
+                      coinData.product.market_data.high_24h["usd"],
+                      coinData.product.market_data.current_price["usd"]
+                    ).toString() + "%",
+                }}
+                className="bg-gradient-to-r from-green-600 to-yellow-300"
+              ></div>
+            </div>
+            <div className="flex flex-row justify-between">
+              <p className="text-white">
+                {coinData.product.market_data.low_24h["usd"]}
+              </p>
+              <p className="text-white">
+                {coinData.product.market_data.high_24h["usd"]}
+              </p>
+            </div>
           </div>
-          <p className="text-white">
-            {coinData.product.market_data.low_24h["usd"]}
-          </p>
-          <p className="text-white">
-            {coinData.product.market_data.high_24h["usd"]}
-          </p>
         </div>
       )}
     </div>
