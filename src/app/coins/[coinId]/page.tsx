@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { CoinInfo } from "./coinInfo";
 import Image from "next/image";
-import { CaretDown, CaretUp } from "@phosphor-icons/react";
+import { CaretDown, CaretRight, CaretUp } from "@phosphor-icons/react";
+import InfoList from "./InfoList";
+import CoinProgressBar from "./CoinProgressBar";
+import Link from "next/link";
+import MenueSelction from "./MenueSelction";
 
 function page({ params }: { params: { coinId: string } }) {
   const [coinData, setCoinData] = useState<CoinInfo>();
@@ -21,7 +25,13 @@ function page({ params }: { params: { coinId: string } }) {
   return (
     <div>
       {coinData?.product != null && (
-        <div className="flex flex-col px-4 py-4 gap-y-4">
+        <div className="flex flex-col gap-y-4 px-44 py-24">
+          <div className=" flex flex-row items-center justify-start">
+            <Link className="text-white text-center" href={"/"}>
+              Cryptocurrencies
+            </Link>
+            <CaretRight width={20} height={20} color="White"></CaretRight>
+          </div>
           <p className="rounded-xl bg-gray-800 w-fit px-4 py-2 text-center text-white">
             {`Rank #${coinData?.product.market_cap_rank}`}
           </p>
@@ -43,53 +53,75 @@ function page({ params }: { params: { coinId: string } }) {
               {coinData.product.market_data.current_price["usd"]}
             </p>
             <div className="flex flex-row gap-1 items-center">
-              {coinData.product.market_data.price_change_24h > 0 ? (
+              {coinData.product.market_data.price_change_percentage_24h > 0 ? (
                 <CaretUp size={20} weight="bold" color="Green"></CaretUp>
               ) : (
                 <CaretDown size={20} weight="bold" color="Red"></CaretDown>
               )}
               <p
                 className={` ${
-                  coinData.product.market_data.price_change_24h > 0
+                  coinData.product.market_data.price_change_percentage_24h > 0
                     ? "text-green-400"
                     : "text-red-400"
                 }`}
               >
-                {coinData.product.market_data.price_change_24h}%
+                {coinData.product.market_data.price_change_percentage_24h}%
               </p>
             </div>
           </div>
-          <div className="flex flex-col w-fit">
-            <div className="overflow-hidden flex flex-row justify-start w-80 h-2 bg-gray-500 rounded-3xl">
-              <div
-                style={{
-                  width:
-                    Inverselerp(
-                      coinData.product.market_data.low_24h["usd"],
-                      coinData.product.market_data.high_24h["usd"],
-                      coinData.product.market_data.current_price["usd"]
-                    ).toString() + "%",
-                }}
-                className="bg-gradient-to-r from-green-600 to-yellow-300"
-              ></div>
+          <CoinProgressBar coinData={coinData}></CoinProgressBar>
+          <div className="flex flex-row gap-x-12 w-fit">
+            <div className="flex flex-col gap-y-4">
+              <InfoList
+                displayText="MarketCap"
+                coinData={
+                  "$" +
+                  coinData.product.market_data.market_cap["usd"].toString()
+                }
+              ></InfoList>
+              <InfoList
+                displayText="24 Hour Trading Vol "
+                coinData={
+                  "$" +
+                  coinData.product.market_data.total_volume["usd"].toString()
+                }
+              ></InfoList>
+              <InfoList
+                displayText="Fully Diluted Valuation"
+                coinData={
+                  "$" +
+                  coinData.product.market_data.fully_diluted_valuation[
+                    "usd"
+                  ].toString()
+                }
+              ></InfoList>
             </div>
-            <div className="flex flex-row justify-between">
-              <p className="text-white">
-                {coinData.product.market_data.low_24h["usd"]}
-              </p>
-              <p className="text-white">
-                {coinData.product.market_data.high_24h["usd"]}
-              </p>
+            <div className="flex flex-col gap-y-4">
+              <InfoList
+                displayText="Circulating Supply"
+                coinData={
+                  "$" +
+                  coinData.product.market_data.circulating_supply.toString()
+                }
+              ></InfoList>
+              <InfoList
+                displayText="Total Supply"
+                coinData={
+                  "$" + coinData.product.market_data.total_supply.toString()
+                }
+              ></InfoList>
+              <InfoList
+                displayText="Max Supply"
+                coinData={
+                  "$" + coinData.product.market_data.max_supply.toString()
+                }
+              ></InfoList>
             </div>
           </div>
         </div>
       )}
     </div>
   );
-}
-function Inverselerp(a: number, b: number, t: number) {
-  const distance = b - a;
-  return (100 * (t - a)) / distance;
 }
 
 export default page;
