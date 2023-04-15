@@ -5,6 +5,7 @@ import { CoinList } from "../coinsList";
 import CoinListBtn from "./CoinListBtn";
 import { useScroll, motion, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
+import { log } from "console";
 
 type Props = {
   coinList: any;
@@ -75,10 +76,10 @@ function CoinListComp({ coinList }: Props) {
   }
 
   return (
-    <motion.div className="w-screen lg:w-full px-4 overflow-x-scroll bg-gray-800 flex flex-col  items-center">
+    <motion.div className="w-screen lg:w-full overflow-x-scroll bg-gray-800 flex flex-col  items-center ">
       <motion.div
         ref={ref}
-        className="flex w-fit lg:w-full pl-[250px] md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
+        className="lg:pl-4 pl-[350px] flex  w-fit lg:w-full  md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
       >
         <CoinListBtn
           classStyle=" sticky left-0 min-w-[250px] text-start bg-gray-800 lg:border-none border-r-2 border-gray-700 "
@@ -117,12 +118,16 @@ function CoinListComp({ coinList }: Props) {
         ></CoinListBtn>
       </motion.div>
       {coinSorted?.map((coin: CoinList, index) => (
-        <motion.div className="lg:w-full" key={coin.id} layout>
+        <motion.div
+          className="lg:pl-4 pl-[350px] w-fit lg:w-full"
+          key={coin.id}
+          layout
+        >
           <Link
             href={`/coins/${coin.id}`}
-            className="flex w-fit lg:w-full flex-row justify-between  md:px-0 lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
+            className="flex w-fit  lg:w-full flex-row justify-between md:px-0 lg:px-0 gap-x-5 items-center py-4 shadow-md"
           >
-            <div className="sticky left-0 bg-gray-800 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
+            <div className="bg-gray-800 sticky left-0 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
               <p className="text-white hidden lg:block text-end">{index}</p>
               <Image
                 className="rounded-full shadow-md w-auto h-auto"
@@ -134,7 +139,7 @@ function CoinListComp({ coinList }: Props) {
               <p className="text-lg font-bold text-white">
                 {coin.symbol.toUpperCase()}
               </p>
-              <p className=" text-white/80">
+              <p className=" hidden lg:visible text-white/80">
                 {coin.id[0].toUpperCase() + coin.id.slice(1)}
               </p>
             </div>

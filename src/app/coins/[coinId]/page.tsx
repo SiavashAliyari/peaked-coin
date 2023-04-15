@@ -7,7 +7,6 @@ import InfoList from "./InfoList";
 import CoinProgressBar from "./CoinProgressBar";
 import Link from "next/link";
 import MenueSelction from "./MenueSelction";
-import ChipSelection from "@/app/components/ChipSelection";
 import OverViewPage from "./OverViewPage";
 import MarketsPage from "./MarketsPage";
 
@@ -30,7 +29,7 @@ function page({ params }: { params: { coinId: string } }) {
   return (
     <div>
       {coinData?.product != null && (
-        <div className="flex flex-col gap-y-8 px-44 py-24">
+        <div className="flex flex-col gap-y-8 px-4 py-4 lg:px-44 lg:py-24">
           <div className=" flex flex-row items-center justify-start">
             <Link className="text-white text-center" href={"/"}>
               Cryptocurrencies
@@ -76,7 +75,7 @@ function page({ params }: { params: { coinId: string } }) {
           </div>
           <CoinProgressBar coinData={coinData}></CoinProgressBar>
           <div className="flex flex-row gap-x-12 w-fit">
-            <div className="flex flex-col gap-y-4">
+            <div className="grid lg:grid-rows-3 lg:grid-cols-2 lg:gap-12 grid-flow-row gap-7 grid-cols-1">
               <InfoList
                 displayText="MarketCap"
                 coinData={
@@ -100,8 +99,6 @@ function page({ params }: { params: { coinId: string } }) {
                   ].toString()
                 }
               ></InfoList>
-            </div>
-            <div className="flex flex-col gap-y-4">
               <InfoList
                 displayText="Circulating Supply"
                 coinData={

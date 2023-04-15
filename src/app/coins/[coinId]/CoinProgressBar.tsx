@@ -3,8 +3,8 @@ import { CoinInfo } from "./coinInfo";
 
 function CoinProgressBar({ coinData }: { coinData: CoinInfo }) {
   return (
-    <div className="flex flex-col w-fit">
-      <div className="overflow-hidden flex flex-row justify-start w-80 h-2 bg-gray-500 rounded-3xl">
+    <div className="flex flex-col  w-full lg:w-fit">
+      <div className="overflow-hidden flex flex-row justify-start w-full lg:w-80 h-2 bg-gray-500 rounded-3xl">
         <div
           style={{
             width:

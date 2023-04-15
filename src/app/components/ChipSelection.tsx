@@ -26,9 +26,10 @@ const container = {
 
 function ChipSelection({ onPress, items, curruntSelected }: Props) {
   return (
-    <div style={{}} className="flex flex-row gap-x-2">
+    <div className="flex flex-row gap-x-2 lg:w-fit w-full overflow-x-scroll justify-evenly scrollbar-hide">
       {items.map((item) => (
         <button
+          key={item.index}
           onClick={() => {
             onPress(item.index);
           }}
