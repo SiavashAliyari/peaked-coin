@@ -7,8 +7,13 @@ import InfoList from "./InfoList";
 import CoinProgressBar from "./CoinProgressBar";
 import Link from "next/link";
 import MenueSelction from "./MenueSelction";
+import ChipSelection from "@/app/components/ChipSelection";
+import OverViewPage from "./OverViewPage";
+import MarketsPage from "./MarketsPage";
 
 function page({ params }: { params: { coinId: string } }) {
+  const [curruntIndex, setCurruntIndex] = useState(0);
+
   const [coinData, setCoinData] = useState<CoinInfo>();
   useEffect(() => {
     const getData = async () => {
@@ -25,7 +30,7 @@ function page({ params }: { params: { coinId: string } }) {
   return (
     <div>
       {coinData?.product != null && (
-        <div className="flex flex-col gap-y-4 px-44 py-24">
+        <div className="flex flex-col gap-y-8 px-44 py-24">
           <div className=" flex flex-row items-center justify-start">
             <Link className="text-white text-center" href={"/"}>
               Cryptocurrencies
@@ -113,10 +118,30 @@ function page({ params }: { params: { coinId: string } }) {
               <InfoList
                 displayText="Max Supply"
                 coinData={
-                  "$" + coinData.product.market_data.max_supply.toString()
+                  coinData.product.market_data.max_supply
+                    ? "$" + coinData.product.market_data.max_supply.toString()
+                    : "Unlimited"
                 }
               ></InfoList>
             </div>
+          </div>
+          <MenueSelction
+            curruntIndex={curruntIndex}
+            OnPress={setCurruntIndex}
+            items={[
+              { displayText: "OverView", index: 0 },
+              { displayText: "Markets", index: 1 },
+              { displayText: "Historical Data", index: 2 },
+              { displayText: "Having Countdown", index: 3 },
+            ]}
+          ></MenueSelction>
+          <div>
+            {
+              {
+                0: <OverViewPage coinData={coinData}></OverViewPage>,
+                1: <MarketsPage></MarketsPage>,
+              }[curruntIndex]
+            }
           </div>
         </div>
       )}
