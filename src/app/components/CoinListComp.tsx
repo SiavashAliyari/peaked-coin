@@ -21,10 +21,6 @@ function CoinListComp({ coinList }: Props) {
   const [coinSorted, setSortedCoin] = useState<CoinList[]>(coinList);
   const [curruntSelected, setSelected] = useState(sortType.market_cap);
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["end end", "start start"],
-  });
   function HandleSort(sortId: sortType) {
     setSelected(sortId);
     var sortedList;
@@ -121,46 +117,47 @@ function CoinListComp({ coinList }: Props) {
         ></CoinListBtn>
       </motion.div>
       {coinSorted?.map((coin: CoinList, index) => (
-        <Link
-          href={`/coins/${coin.id}`}
-          key={coin.id}
-          className="flex w-fit lg:w-full  flex-row justify-between  md:px-0 lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
-        >
-          <div className="sticky left-0 bg-gray-800 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
-            <p className="text-white hidden lg:block text-end">{index}</p>
-            <Image
-              className="rounded-full shadow-md w-auto h-auto"
-              alt="icon"
-              src={coin.image}
-              width={30}
-              height={30}
-            ></Image>
-            <p className="text-lg font-bold text-white">
-              {coin.symbol.toUpperCase()}
-            </p>
-            <p className=" text-white/80">
-              {coin.id[0].toUpperCase() + coin.id.slice(1)}
-            </p>
-          </div>
-          <p className=" text-white text-end lg:mx-0 min-w-[100px]">
-            {"$ " + coin.current_price}
-          </p>
-          <p
-            className={`text-end min-w-[100px] ${
-              coin.price_change_percentage_24h > 0
-                ? " text-green-500"
-                : " text-red-500"
-            }`}
+        <motion.div className="lg:w-full" key={coin.id} layout>
+          <Link
+            href={`/coins/${coin.id}`}
+            className="flex w-fit lg:w-full flex-row justify-between  md:px-0 lg:px-0 pl-[250px] gap-x-5 items-center py-4 shadow-md"
           >
-            {coin.price_change_percentage_24h + " %"}
-          </p>
-          <p className="text-white min-w-[100px] text-end">
-            {nFormatter(coin.total_volume, 2)}
-          </p>
-          <p className="text-white min-w-[100px] text-end">
-            {nFormatter(coin.market_cap, 2)}
-          </p>
-        </Link>
+            <div className="sticky left-0 bg-gray-800 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
+              <p className="text-white hidden lg:block text-end">{index}</p>
+              <Image
+                className="rounded-full shadow-md w-auto h-auto"
+                alt="icon"
+                src={coin.image}
+                width={30}
+                height={30}
+              ></Image>
+              <p className="text-lg font-bold text-white">
+                {coin.symbol.toUpperCase()}
+              </p>
+              <p className=" text-white/80">
+                {coin.id[0].toUpperCase() + coin.id.slice(1)}
+              </p>
+            </div>
+            <p className=" text-white text-end lg:mx-0 min-w-[100px]">
+              {"$ " + coin.current_price}
+            </p>
+            <p
+              className={`text-end min-w-[100px] ${
+                coin.price_change_percentage_24h > 0
+                  ? " text-green-500"
+                  : " text-red-500"
+              }`}
+            >
+              {coin.price_change_percentage_24h + " %"}
+            </p>
+            <p className="text-white min-w-[100px] text-end">
+              {nFormatter(coin.total_volume, 2)}
+            </p>
+            <p className="text-white min-w-[100px] text-end">
+              {nFormatter(coin.market_cap, 2)}
+            </p>
+          </Link>
+        </motion.div>
       ))}
     </motion.div>
   );
