@@ -14,6 +14,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Image from "next/image";
+import { CoinInfo } from "../coins/[coinId]/coinInfo";
 
 ChartJS.register(
   CategoryScale,
@@ -29,6 +31,7 @@ type Props = {
   name: string;
   price: number;
   code: string;
+  coinInfo: CoinInfo;
 };
 
 function CryptoCard(props: Props) {
@@ -64,6 +67,7 @@ function CryptoCard(props: Props) {
       },
     ],
   };
+  console.log(coinData);
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-800 p-4 rounded-xl border-2 border-gray-700 mx-8 my-2">
@@ -72,7 +76,16 @@ function CryptoCard(props: Props) {
         {/* icon and info row */}
         <div className="flex flex-row w-full relative">
           <div className="absolute -translate-x-12 -translate-y-12 bg-gray-800 rounded-3xl p-2 border-t-4 border-b-[1px] border-r-[1px] border-l-4 border-gray-700">
-            {getIcon(props.code)}
+            {/* {getIcon(props.code)} */}
+            {props.coinInfo != null && (
+              <Image
+                className="rounded-full shadow-md w-auto h-auto"
+                alt="icon"
+                src={props.coinInfo.product.image.large}
+                width={30}
+                height={30}
+              ></Image>
+            )}
           </div>
           <div className="flex flex-col w-full ml-12">
             <div className="flex flex-row items-center justify-between">
@@ -83,10 +96,11 @@ function CryptoCard(props: Props) {
           </div>
         </div>
       </div>
-      <div>
+      <div className="">
         <Line
           data={data}
           options={{
+            maintainAspectRatio: false,
             responsive: false,
             plugins: {
               legend: {

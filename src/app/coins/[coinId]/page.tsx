@@ -90,36 +90,47 @@ function page({ params }: { params: { coinId: string } }) {
                   coinData.product.market_data.total_volume["usd"].toString()
                 }
               ></InfoList>
-              <InfoList
-                displayText="Fully Diluted Valuation"
-                coinData={
-                  "$" +
-                  coinData.product.market_data.fully_diluted_valuation[
-                    "usd"
-                  ].toString()
-                }
-              ></InfoList>
-              <InfoList
-                displayText="Circulating Supply"
-                coinData={
-                  "$" +
-                  coinData.product.market_data.circulating_supply.toString()
-                }
-              ></InfoList>
-              <InfoList
-                displayText="Total Supply"
-                coinData={
-                  "$" + coinData.product.market_data.total_supply.toString()
-                }
-              ></InfoList>
-              <InfoList
-                displayText="Max Supply"
-                coinData={
-                  coinData.product.market_data.max_supply
-                    ? "$" + coinData.product.market_data.max_supply.toString()
-                    : "Unlimited"
-                }
-              ></InfoList>
+              {coinData.product.market_data.fully_diluted_valuation != null && (
+                <InfoList
+                  displayText="Fully Diluted Valuation"
+                  coinData={
+                    "$" +
+                    coinData.product.market_data.fully_diluted_valuation[
+                      "usd"
+                    ]?.toString()
+                  }
+                ></InfoList>
+              )}
+
+              {coinData.product.market_data.circulating_supply != null && (
+                <InfoList
+                  displayText="Circulating Supply"
+                  coinData={
+                    "$" +
+                    coinData.product.market_data.circulating_supply?.toString()
+                  }
+                ></InfoList>
+              )}
+
+              {coinData.product.market_data.total_supply != null && (
+                <InfoList
+                  displayText="Total Supply"
+                  coinData={
+                    "$" + coinData.product.market_data.total_supply?.toString()
+                  }
+                ></InfoList>
+              )}
+              {coinData.product.market_data.max_supply != null && (
+                <InfoList
+                  displayText="Max Supply"
+                  coinData={
+                    coinData.product.market_data.max_supply
+                      ? "$" +
+                        coinData.product.market_data.max_supply?.toString()
+                      : "Unlimited"
+                  }
+                ></InfoList>
+              )}
             </div>
           </div>
           <MenueSelction
