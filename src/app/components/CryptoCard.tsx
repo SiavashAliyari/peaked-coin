@@ -96,12 +96,12 @@ function CryptoCard(props: Props) {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="w-full">
         <Line
           data={data}
           options={{
-            maintainAspectRatio: false,
-            responsive: false,
+            maintainAspectRatio: true,
+            responsive: true,
             plugins: {
               legend: {
                 display: false,
