@@ -23,7 +23,7 @@ async function page() {
   let coinList = await res.json();
 
   return (
-    <div className="w-full overflow-hidden pt-16 h-full min-h-screen flex flex-col items-center justify-center ">
+    <div className="w-full  overflow-hidden pt-16 h-full min-h-screen flex flex-col items-center justify-center ">
       <div className="w-full flex flex-col items-center">
         <div className="flex flex-col lg:flex-row gap-5 justify-center">
           <CryptoCard name="Bitcoin" code="BTC" price={23489.43} />

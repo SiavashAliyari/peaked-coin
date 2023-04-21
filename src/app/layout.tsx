@@ -12,7 +12,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black">{children}</body>
+      <body className="bg-black scrollbar scrollbar-thumb-gray-700 scrollbar-track-gray-600 ">
+        {children}
+      </body>
     </html>
   );
 }

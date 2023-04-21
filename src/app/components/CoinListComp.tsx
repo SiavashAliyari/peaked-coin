@@ -76,7 +76,7 @@ function CoinListComp({ coinList }: Props) {
   }
 
   return (
-    <motion.div className="w-screen lg:w-full overflow-x-scroll bg-gray-800 flex flex-col  items-center ">
+    <motion.div className="w-screen scrollbar-hide lg:pr-9 lg:w-full overflow-x-scroll bg-gray-800 flex flex-col  items-center ">
       <motion.div
         ref={ref}
         className="lg:pl-4 pl-[350px] flex  w-fit lg:w-full  md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
