@@ -29,6 +29,7 @@ function MenueSelction({
     <div className="flex flex-row gap-x-5 items-center">
       {items.map((item) => (
         <button
+          className="flex flex-col items-center justify-center"
           key={item.index}
           onClick={() => {
             OnPress(item.index);
@@ -38,12 +39,16 @@ function MenueSelction({
             layout
             variants={container}
             animate={curruntIndex != item.index ? "Selected" : "UnSelected"}
-            className={`text-white border-white ${
-              curruntIndex == item.index ? "border-b-2" : "border-none"
-            }`}
+            className={`text-white border-white`}
           >
             {item.displayText}
           </motion.p>
+          {curruntIndex == item.index && (
+            <motion.div
+              layoutId="underline"
+              className="bg-white w-full h-[2px] rounded-full"
+            ></motion.div>
+          )}
         </button>
       ))}
     </div>

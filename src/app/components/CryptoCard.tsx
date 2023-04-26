@@ -42,9 +42,9 @@ function CryptoCard(props: Props) {
       const data = await fetch(
         "http://localhost:3000/api/cg/marketChart?" +
           new URLSearchParams({
-            id: props.name.toLocaleLowerCase(),
+            id: props.coinInfo.product.id.toLocaleLowerCase(),
             currency: "usd",
-            daysInterval: "30",
+            daysInterval: "300",
           })
       ).then((res) => res.json());
       setCoinData(data.product.prices);
@@ -70,12 +70,12 @@ function CryptoCard(props: Props) {
   console.log(coinData);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-800 p-4 rounded-xl border-2 border-gray-700 mx-8 my-2">
+    <div className="flex flex-col items-center  justify-center bg-gray-800 p-4 rounded-xl border-2 border-gray-700 mx-8 my-2 w-2/3">
       {/* first row */}
       <div className="flex flex-row w-full">
         {/* icon and info row */}
         <div className="flex flex-row w-full relative">
-          <div className="absolute -translate-x-12 -translate-y-12 bg-gray-800 rounded-3xl p-2 border-t-4 border-b-[1px] border-r-[1px] border-l-4 border-gray-700">
+          <div className="absolute -translate-x-10 -translate-y-10 bg-gray-800 rounded-3xl p-2 border-[2px] border-slate-500">
             {/* {getIcon(props.code)} */}
             {props.coinInfo != null && (
               <Image
@@ -107,30 +107,30 @@ function CryptoCard(props: Props) {
                 display: false,
               },
               tooltip: {
-                enabled: false,
+                enabled: true,
               },
             },
             scales: {
               x: {
                 ticks: {
-                  display: false,
+                  display: true,
                 },
                 grid: {
-                  display: false,
+                  display: true,
                 },
                 border: {
-                  display: false,
+                  display: true,
                 },
               },
               y: {
                 ticks: {
-                  display: false,
+                  display: true,
                 },
                 grid: {
-                  display: false,
+                  display: true,
                 },
                 border: {
-                  display: false,
+                  display: true,
                 },
               },
             },

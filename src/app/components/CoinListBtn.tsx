@@ -23,6 +23,7 @@ function CoinListBtn({
 
   return (
     <motion.button
+      initial={"notSelected"}
       variants={variants}
       animate={curruntSelected != selfIndex ? "selcted" : "notSelected"}
       transition={{ type: "spring", duration: 1 }}
