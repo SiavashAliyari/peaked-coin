@@ -9,6 +9,8 @@ import Link from "next/link";
 import MenueSelction from "./MenueSelction";
 import OverViewPage from "./OverViewPage";
 import MarketsPage from "./MarketsPage";
+import CoinFacts from "./CoinFacts";
+import { motion } from "framer-motion";
 
 function page({ params }: { params: { coinId: string } }) {
   const [curruntIndex, setCurruntIndex] = useState(0);
@@ -34,7 +36,9 @@ function page({ params }: { params: { coinId: string } }) {
             <Link className="text-white text-center" href={"/"}>
               Cryptocurrencies
             </Link>
-            <CaretRight width={20} height={20} color="White"></CaretRight>
+            <motion.div whileHover={{ translateX: 2 }}>
+              <CaretRight width={20} height={20} color="White"></CaretRight>
+            </motion.div>
           </div>
           <p className="rounded-xl bg-gray-800 w-fit px-4 py-2 text-center text-white">
             {`Rank #${coinData?.product.market_cap_rank}`}
@@ -151,6 +155,7 @@ function page({ params }: { params: { coinId: string } }) {
               }[curruntIndex]
             }
           </div>
+          <CoinFacts CoinData={coinData}></CoinFacts>
         </div>
       )}
     </div>

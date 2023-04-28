@@ -16,6 +16,7 @@ import {
 } from "chart.js";
 import Image from "next/image";
 import { CoinInfo } from "../coins/[coinId]/coinInfo";
+import { Variants, motion } from "framer-motion";
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,7 @@ type Props = {
 
 function CryptoCard(props: Props) {
   const [coinData, setCoinData] = useState(null);
-
+  const looks: Variants = {};
   useEffect(() => {
     async function getData() {
       const data = await fetch(
@@ -44,7 +45,7 @@ function CryptoCard(props: Props) {
           new URLSearchParams({
             id: props.coinInfo.product.id.toLocaleLowerCase(),
             currency: "usd",
-            daysInterval: "300",
+            daysInterval: "100",
           })
       ).then((res) => res.json());
       setCoinData(data.product.prices);
@@ -75,7 +76,11 @@ function CryptoCard(props: Props) {
       <div className="flex flex-row w-full">
         {/* icon and info row */}
         <div className="flex flex-row w-full relative">
-          <div className="absolute -translate-x-10 -translate-y-10 bg-gray-800 rounded-3xl p-2 border-[2px] border-slate-500">
+          <motion.div
+            whileHover={{ borderRadius: "30%" }}
+            animate={{ borderRadius: "50%" }}
+            className="absolute -translate-x-10 -translate-y-10 bg-gray-800 p-2 border-[2px] border-slate-500"
+          >
             {/* {getIcon(props.code)} */}
             {props.coinInfo != null && (
               <Image
@@ -86,7 +91,7 @@ function CryptoCard(props: Props) {
                 height={30}
               ></Image>
             )}
-          </div>
+          </motion.div>
           <div className="flex flex-col w-full ml-12">
             <div className="flex flex-row items-center justify-between">
               <p className="text-white">{props.name}</p>

@@ -21,6 +21,8 @@ enum sortType {
 function CoinListComp({ coinList }: Props) {
   const [coinSorted, setSortedCoin] = useState<CoinList[]>(coinList);
   const [curruntSelected, setSelected] = useState(sortType.market_cap);
+  console.log(coinList);
+
   const ref = useRef(null);
   function HandleSort(sortId: sortType) {
     setSelected(sortId);
@@ -119,6 +121,8 @@ function CoinListComp({ coinList }: Props) {
       </motion.div>
       {coinSorted?.map((coin: CoinList, index) => (
         <motion.div
+          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
           className="lg:pl-4 pl-[350px] w-fit lg:w-full"
           key={coin.id}
           layout
