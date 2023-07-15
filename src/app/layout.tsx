@@ -1,3 +1,4 @@
+import CoinHead from "./CoinHead";
 import "./globals.css";
 
 export const metadata = {
@@ -12,7 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black scrollbar scrollbar-thumb-gray-700 scrollbar-track-gray-600 ">
+      <body className="bg-PeakedBlack scrollbar scrollbar-thumb-PeakedGreay scrollbar-track-PeakedBlack ">
+        <CoinHead></CoinHead>
         {children}
       </body>
     </html>

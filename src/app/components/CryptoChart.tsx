@@ -57,6 +57,7 @@ function CryptoChart() {
       className="w-full h-36"
       data={data}
       options={{
+        backgroundColor: "#202126",
         responsive: true,
         maintainAspectRatio: false,
         plugins: {

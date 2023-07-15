@@ -13,11 +13,11 @@ type item = {
 };
 
 const container = {
-  Selected: { color: "#faf7f7", opacity: 1, background: "#09e644" },
+  Selected: { color: "#000000", opacity: 1, background: "#EAE74F" },
   UnSelected: {
     opacity: 0.5,
-    background: "#ffffff",
-    color: "#000000",
+    background: "#202126",
+    color: "#faf7f7",
     transition: {
       delayChildren: 0.5,
     },

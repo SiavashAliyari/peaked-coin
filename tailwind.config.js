@@ -9,7 +9,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {colors:{"PeakedYellow" : "#EAE74F" , "PeakedBlack": "#202126","PeakedGreay":"#23242A"}},
   },
   plugins: [
     require('tailwind-scrollbar-hide'),

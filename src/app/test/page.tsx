@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
 function page() {
@@ -8,6 +9,19 @@ function page() {
       <p>siavsah</p>
       <p>siavsah</p>
       <p>siavsah</p>
+      <Ghasem
+        onBomb={() => {
+          console.log("sdas");
+        }}
+        death={10}
+      ></Ghasem>
+      <Ghasem
+        onBomb={() => {
+          console.log("sdas");
+        }}
+        death={10}
+      ></Ghasem>
+
       <p>siavsah</p>
       <p>siavsah</p>
       <p>siavsah</p>
@@ -18,5 +32,12 @@ function page() {
     </div>
   );
 }
-
+const Ghasem = ({ death, onBomb }: { onBomb: () => void; death: number }) => {
+  return (
+    <div>
+      <Link href={"./sdkadhua"}></Link>
+      <button onClick={onBomb}></button>
+    </div>
+  );
+};
 export default page;

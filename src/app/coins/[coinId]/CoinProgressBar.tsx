@@ -14,7 +14,7 @@ function CoinProgressBar({ coinData }: { coinData: CoinInfo }) {
                 coinData.product.market_data.current_price["usd"]
               ).toString() + "%",
           }}
-          className="bg-gradient-to-r from-green-600 to-yellow-300"
+          className=" bg-yellow-300"
         ></div>
       </div>
       <div className="flex flex-row justify-between">

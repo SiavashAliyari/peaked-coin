@@ -78,13 +78,13 @@ function CoinListComp({ coinList }: Props) {
   }
 
   return (
-    <motion.div className="w-screen scrollbar-hide lg:pr-9 lg:w-full overflow-x-scroll bg-gray-800 flex flex-col  items-center ">
+    <motion.div className="w-screen scrollbar-hide lg:pr-9 md:px-0 md:justify-start lg:w-full overflow-x-scroll bg-PeakedGreay flex flex-col  items-center ">
       <motion.div
         ref={ref}
-        className="lg:pl-4 pl-[350px] flex  w-fit lg:w-full  md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
+        className="lg:pl-4 sm:pl-2 md:pl-2 pl-[350px] flex  w-fit lg:w-full  md:px-0 lg:px-0 flex-row justify-between gap-x-5 items-center py-4 shadow-md"
       >
         <CoinListBtn
-          classStyle=" sticky left-0 min-w-[250px] text-start bg-gray-800 lg:border-none border-r-2 border-gray-700 "
+          classStyle=" sticky left-0 min-w-[250px] text-start bg-PeakedGreay lg:border-none border-r-2 border-gray-700 "
           curruntSelected={curruntSelected}
           selfIndex={sortType.name}
           onClicked={HandleSort}
@@ -123,7 +123,7 @@ function CoinListComp({ coinList }: Props) {
         <motion.div
           whileInView={{ opacity: 1 }}
           initial={{ opacity: 0 }}
-          className="lg:pl-4 pl-[350px] w-fit lg:w-full"
+          className="lg:pl-4 sm:pl-2 md:pl-2 pl-[350px]  w-fit lg:w-full"
           key={coin.id}
           layout
         >
@@ -131,7 +131,7 @@ function CoinListComp({ coinList }: Props) {
             href={`/coins/${coin.id}`}
             className="flex w-fit  lg:w-full flex-row justify-between md:px-0 lg:px-0 gap-x-5 items-center py-4 shadow-md"
           >
-            <div className="bg-gray-800 sticky left-0 lg:border-none border-r-2 border-gray-700 flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
+            <div className="bg-PeakedGreay sticky left-0 lg:border-none border-r-2  flex flex-row lg:gap-4 gap-1  justify-start items-center min-w-[250px]">
               <p className="text-white hidden lg:block text-end">{index}</p>
               <Image
                 className="rounded-full shadow-md w-auto h-auto"

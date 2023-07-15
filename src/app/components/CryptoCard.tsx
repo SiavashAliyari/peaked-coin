@@ -64,14 +64,15 @@ function CryptoCard(props: Props) {
       {
         label: "Price",
         data: num,
-        borderColor: "rgb(1, 99, 132)",
+        borderColor: "#EAE74F",
+        backgroundColor: "#202126",
       },
     ],
   };
   console.log(coinData);
 
   return (
-    <div className="flex flex-col items-center  justify-center bg-gray-800 p-4 rounded-xl border-2 border-gray-700 mx-8 my-2 w-2/3">
+    <div className=" flex flex-col items-center  justify-center bg-PeakedGreay p-4 rounded-xl border-2 border-PeakedYellow mx-8 my-2 w-2/3">
       {/* first row */}
       <div className="flex flex-row w-full">
         {/* icon and info row */}
@@ -79,7 +80,7 @@ function CryptoCard(props: Props) {
           <motion.div
             whileHover={{ borderRadius: "30%" }}
             animate={{ borderRadius: "50%" }}
-            className="absolute -translate-x-10 -translate-y-10 bg-gray-800 p-2 border-[2px] border-slate-500"
+            className="absolute -translate-x-10 -translate-y-10 bg-gray-800 p-2 border-[2px] border-PeakedYellow"
           >
             {/* {getIcon(props.code)} */}
             {props.coinInfo != null && (
@@ -104,6 +105,7 @@ function CryptoCard(props: Props) {
       <div className="w-full">
         <Line
           data={data}
+          color="rgb(32, 33, 38)"
           options={{
             maintainAspectRatio: true,
             responsive: true,
@@ -118,7 +120,7 @@ function CryptoCard(props: Props) {
             scales: {
               x: {
                 ticks: {
-                  display: true,
+                  display: false,
                 },
                 grid: {
                   display: true,
